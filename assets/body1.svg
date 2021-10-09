@@ -222,5 +222,5 @@
       <path d="M145.18,53.62a.69.69,0,0,1,.56.22.89.89,0,0,1,.2.6.75.75,0,0,1-.77.83.72.72,0,0,1-.56-.22.92.92,0,0,1-.2-.6.75.75,0,0,1,.77-.83m0-1a1.83,1.83,0,0,0,0,3.65,1.83,1.83,0,0,0,0-3.65Z"/>
     </g>
   </g>
-  <image id="fish" width="446" height="480" transform="translate(11 9.5)" xlink:href="../fish1.png"/>
+  <image id="fish" width="446" height="480" transform="translate(11 9.5)" xlink:href="assets/fish1.png"/>
 </svg>
