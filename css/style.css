@@ -50,9 +50,9 @@ section {
   justify-content: center;
 }
 
-#monster {
-  width: 50%;
-  height: 70%;
+#monster-container {
+  width: 60%;
+  /* height: 70%; */
   background-color: aliceblue;
 }
 
