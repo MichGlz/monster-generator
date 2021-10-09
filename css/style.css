@@ -1,0 +1,120 @@
+:root {
+  --font-body: var(--font-body);
+  --font-headers: var(--font-body);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  width: 100%;
+  height: 10vh;
+  background-color: wheat;
+  border-bottom: solid 1px tomato;
+}
+
+main {
+  width: 100%;
+  background-color: antiquewhite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2vw;
+}
+
+section {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: aquamarine;
+}
+
+.screen-colors-wrapper {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: blue;
+}
+
+#screen {
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#monster {
+  width: 50%;
+  height: 70%;
+  background-color: aliceblue;
+}
+
+#colors-container {
+  width: 100%;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: cadetblue;
+}
+
+#colors-container [class^="color"] {
+  width: 5vw;
+  height: 5vw;
+  min-width: 60px;
+  min-height: 60px;
+  border-radius: 50%;
+  background-color: chocolate;
+}
+
+.options-btn-wrapper {
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#options-container {
+  width: 100%;
+  max-height: 80vh;
+  padding: 1rem;
+  background-color: darkgray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+div[id^="option"] {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: darkkhaki;
+}
+
+div[id^="option"] + * {
+  margin-top: 2rem;
+}
+
+.sub_options_container {
+  padding: 1rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-color: rgb(90, 89, 75);
+}
+
+div[class^="sub_option-"] {
+  width: 6rem;
+  height: 6rem;
+  background-color: aqua;
+}
