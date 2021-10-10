@@ -18,6 +18,7 @@ function fetchMonster() {
     })
     .then(function (data) {
       document.querySelector("#monster-container").innerHTML = data;
+      console.log(document.querySelector("#monster-complete").getBoundingClientRect());
     });
 }
 
@@ -43,14 +44,37 @@ function fetchBtnSVG() {
 function selectPart(e) {
   const part = this.dataset.part;
   const option = this.dataset.option;
-  console.log(part, option);
 
-  if (document.querySelector(`#${part + option}`).classList.contains("hide")) {
+  const featureElement = document.querySelector(`#${part + option}`);
+  if (featureElement.classList.contains("hide")) {
     for (let i = 1; i <= 3; i++) {
       document.querySelector(`#${part + i}`).classList.add("hide");
     }
-    document.querySelector(`#${part + option}`).classList.remove("hide");
+    featureElement.classList.remove("hide");
+    animationFLIP(this, featureElement);
+    featureElement.classList.add("animate-feature-in");
+    featureElement.addEventListener("animationend", () => {
+      featureElement.classList.remove("animate-feature-in");
+    });
   } else {
     document.querySelector(`#${part + option}`).classList.add("hide");
   }
+}
+
+function animationFLIP(target, featureElement) {
+  const firstFrame = target.querySelector("svg").getBoundingClientRect();
+  const lastFrame = featureElement.getBoundingClientRect();
+  const monsterComplete = document.querySelector("#monster-complete").getBoundingClientRect();
+  const scaleFactor = 716 / monsterComplete.height;
+
+  const deltaX = (firstFrame.left - lastFrame.left) * scaleFactor;
+  const deltaY = (firstFrame.top - lastFrame.top) * scaleFactor;
+  const deltaWidth = (firstFrame.width / lastFrame.width) * scaleFactor;
+  const deltaHeight = (firstFrame.height / lastFrame.height) * scaleFactor;
+
+  const root = document.querySelector(":root");
+  featureElement.style.setProperty("--deltaX", `${deltaX}px`);
+  featureElement.style.setProperty("--deltaY", `${deltaY}px`);
+  featureElement.style.setProperty("--deltaWidth", deltaWidth);
+  featureElement.style.setProperty("--deltaHeight", deltaHeight);
 }

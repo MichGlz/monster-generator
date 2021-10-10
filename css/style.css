@@ -52,8 +52,9 @@ section {
 
 #monster-container {
   width: 60%;
-  /* height: 70%; */
+  height: 70%;
   background-color: aliceblue;
+  position: relative;
 }
 
 #colors-container {
@@ -121,6 +122,33 @@ div[id^="option"] + * {
 }
 
 .btn-option:hover {
-  transform: scale(1.1);
+  /* transform: scale(1.1); */
+
   cursor: pointer;
+}
+
+.animate-feature-in {
+  /* TODO: Create animation for adding a feature */
+
+  animation-name: feature-in;
+  animation-duration: 0.8s;
+  animation-timing-function: ease-in-out;
+}
+
+.animate-feature-out {
+  animation-name: feature-in;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-direction: reverse;
+}
+
+@keyframes feature-in {
+  from {
+    transform-origin: top left;
+    transform: translate(var(--deltaX), var(--deltaY)) scale(var(--deltaWidth), var(--deltaHeight));
+  }
+  to {
+    transform-origin: top left;
+    transform: none;
+  }
 }
