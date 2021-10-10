@@ -1,6 +1,8 @@
+/*  importing fonts  */
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+
 :root {
-  --font-body: var(--font-body);
-  --font-headers: var(--font-body);
+  --font-primary: "Fredoka One", cursive;
 }
 
 * {
@@ -11,14 +13,20 @@
 
 header {
   width: 100%;
-  height: 10vh;
-  background-color: wheat;
-  border-bottom: solid 1px tomato;
+  height: 15vh;
+  background-color: #ee564b;
+  color: #f0eada;
+  font-family: var(--font-primary);
+  font-size: 2.5em;
+  letter-spacing: 0.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 main {
   width: 100%;
-  background-color: antiquewhite;
+  background-color: #ffece3;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -30,7 +38,6 @@ section {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  background-color: aquamarine;
 }
 
 .screen-colors-wrapper {
@@ -38,13 +45,11 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: blue;
 }
 
 #screen {
   width: 100%;
   height: 100%;
-  background-color: black;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,26 +57,30 @@ section {
 
 #monster-container {
   width: 60%;
-  background-color: aliceblue;
-  position: relative;
+  /* height: 70%; */
 }
 
 #colors-container {
-  width: 100%;
+  width: 85%;
   padding: 1rem 0;
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-color: cadetblue;
 }
 
 #colors-container [class^="color"] {
-  width: 5vw;
-  height: 5vw;
+  width: 4.5vw;
+  height: 4.5vw;
   min-width: 60px;
   min-height: 60px;
   border-radius: 50%;
   background-color: chocolate;
+  transition: transform 0.5s;
+}
+
+.color-btn:hover {
+  transform: scale(1.1);
+  border-radius: 50px;
 }
 
 .options-btn-wrapper {
@@ -79,13 +88,13 @@ section {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-around;
 }
 
 #options-container {
   width: 100%;
   max-height: 80vh;
   padding: 1rem;
-  background-color: darkgray;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -97,7 +106,18 @@ div[id^="option"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: darkkhaki;
+  font-family: var(--font-primary);
+}
+
+div[id^="option"] h2 {
+  background-color: #fcc676;
+  width: 100%;
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 3.2px;
+  font-size: 1em;
+  border-radius: 3px;
 }
 
 div[id^="option"] + * {
@@ -110,20 +130,40 @@ div[id^="option"] + * {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-color: rgb(90, 89, 75);
+  background-color: #fcc67640;
+  border-radius: 6px;
 }
 
 .btn-option {
   width: 6rem;
-
+  height: 6rem;
   cursor: pointer;
-  background-color: brown;
+  transition: transform 0.5s;
+  background-color: #002b5c;
+  border-radius: 50%;
+  display: flex;
 }
 
 .btn-option:hover {
-  /* transform: scale(1.1); */
-
   cursor: pointer;
+  background-color: #ee564b;
+}
+
+.btn {
+  font-family: var(--font-primary);
+  font-size: 1.2em;
+  text-transform: uppercase;
+  color: #f0eada;
+  padding: 0.5em 1em;
+  background-color: #ee564b;
+  border: none;
+  border-radius: 6px;
+}
+
+.btn_container {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
 }
 
 .sprit {

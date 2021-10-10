@@ -73,7 +73,7 @@ function selectPart(e) {
 }
 
 function animationFLIP(target, featureElement, sprit) {
-  const firstFrame = target.getBoundingClientRect();
+  const firstFrame = target.querySelector("svg").getBoundingClientRect();
   const lastFrame = featureElement.getBoundingClientRect();
 
   const deltaX = firstFrame.left - lastFrame.left;
