@@ -126,28 +126,48 @@ div[id^="option"] + * {
   cursor: pointer;
 }
 
+.sprit {
+  position: absolute;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0;
+}
+
 .animate-feature-in {
   /* TODO: Create animation for adding a feature */
 
   animation-name: feature-in;
-  animation-duration: 0.8s;
+  animation-duration: 1s;
   animation-timing-function: ease-in-out;
 }
 
 .animate-feature-out {
   animation-name: feature-in;
-  animation-duration: 0.5s;
+  animation-duration: 0.7s;
   animation-timing-function: ease-in-out;
   animation-direction: reverse;
 }
 
 @keyframes feature-in {
-  from {
+  0% {
     transform-origin: top left;
-    transform: translate(var(--deltaX), var(--deltaY)) scale(var(--deltaWidth), var(--deltaHeight));
+    transform: translateX(var(--deltaX)) translateY(var(--deltaY)) scale(var(--deltaWidth), var(--deltaHeight));
+    opacity: 0.5;
   }
-  to {
+
+  40% {
+    transform-origin: center;
+    transform: translateY(-10vw) scale(calc(var(--deltaWidth) * 2), calc(var(--deltaHeight) * 2));
+  }
+  98% {
+    opacity: 0.5;
+  }
+  100% {
     transform-origin: top left;
     transform: none;
+    opacity: 0;
   }
 }

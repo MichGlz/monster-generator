@@ -2,6 +2,10 @@
   fill: grey;
 } */
 
+.monster-part {
+  transition: opacity 0.2s;
+}
+
 #monster-complete .monster-part .cls-1 {
   fill: white;
   transition: fill 0.5s;

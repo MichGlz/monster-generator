@@ -44,41 +44,70 @@ function fetchBtnSVG() {
 function selectPart(e) {
   const part = this.dataset.part;
   const option = this.dataset.option;
-
   const featureElement = document.querySelector(`#${part + option}`);
+
   if (featureElement.classList.contains("hide")) {
     for (let i = 1; i <= 3; i++) {
       document.querySelector(`#${part + i}`).classList.add("hide");
     }
-    featureElement.classList.remove("hide");
-    animationFLIP(this, featureElement);
-    featureElement.classList.add("animate-feature-in");
-    featureElement.addEventListener("animationend", () => {
-      featureElement.classList.remove("animate-feature-in");
+
+    const sprit = createSprit(part, option, featureElement);
+    document.querySelector("main").appendChild(sprit);
+
+    animationFLIP(this, featureElement, sprit);
+    sprit.classList.add("animate-feature-in");
+    sprit.addEventListener("animationend", () => {
+      featureElement.classList.remove("hide");
+      sprit.classList.remove("animate-feature-in");
     });
   } else {
     document.querySelector(`#${part + option}`).classList.add("hide");
+    const sprit = createSprit(part, option, featureElement);
+    document.querySelector("main").appendChild(sprit);
+    animationFLIP(this, featureElement, sprit);
+    sprit.classList.add("animate-feature-out");
+    sprit.addEventListener("animationend", () => {
+      sprit.remove();
+    });
   }
 }
 
-function animationFLIP(target, featureElement) {
+function animationFLIP(target, featureElement, sprit) {
   const firstFrame = target.getBoundingClientRect();
   const lastFrame = featureElement.getBoundingClientRect();
-  const monsterComplete = document.querySelector("#monster-complete").getBoundingClientRect();
-  const scaleFactorY = 716 / monsterComplete.height;
-  const scaleFactorX = 676 / monsterComplete.width;
-  // const Xdiference=monsterComplete.
-  const scaleFactor = 1;
 
-  console.log("scaleY:", scaleFactorY, "scaleX", scaleFactorX);
+  const deltaX = firstFrame.left - lastFrame.left;
+  const deltaY = firstFrame.top - lastFrame.top;
+  const deltaWidth = firstFrame.width / lastFrame.width;
+  const deltaHeight = firstFrame.height / lastFrame.height;
 
-  const deltaX = (firstFrame.left - lastFrame.left) * scaleFactorX;
-  const deltaY = (firstFrame.top - lastFrame.top) * scaleFactorY;
-  const deltaWidth = (firstFrame.width / lastFrame.width) * scaleFactorX;
-  const deltaHeight = (firstFrame.height / lastFrame.height) * scaleFactorY;
+  sprit.style.setProperty("--deltaX", `${deltaX}px`);
+  sprit.style.setProperty("--deltaY", `${deltaY}px`);
+  sprit.style.setProperty("--deltaWidth", deltaWidth);
+  sprit.style.setProperty("--deltaHeight", deltaHeight);
+}
 
-  featureElement.style.setProperty("--deltaX", `${deltaX}px`);
-  featureElement.style.setProperty("--deltaY", `${deltaY}px`);
-  featureElement.style.setProperty("--deltaWidth", deltaWidth);
-  featureElement.style.setProperty("--deltaHeight", deltaHeight);
+function createSprit(part, option, featureElement) {
+  const boxSize = featureElement.getBoundingClientRect();
+  const boxLeft = boxSize.left;
+  const boxTop = boxSize.top;
+  const boxWidth = boxSize.width;
+  const boxHeight = boxSize.height;
+  const sprit = document.createElement("div");
+  sprit.classList.add("sprit");
+  sprit.style.width = `${boxWidth}px`;
+  sprit.style.height = `${boxHeight}px`;
+  sprit.style.top = `${boxTop}px`;
+  sprit.style.left = `${boxLeft}px`;
+
+  fetch(`assets/${part + option}.svg`)
+    .then(function (res) {
+      return res.text();
+    })
+    .then(function (data) {
+      sprit.innerHTML = data;
+    });
+
+  // sprit.style.backgroundImage = `url(assets/${part + option}.svg)`;
+  return sprit;
 }
