@@ -117,4 +117,10 @@ div[id^="option"] + * {
   width: 6rem;
   height: 6rem;
   cursor: pointer;
+  transition: transform 0.5s;
+}
+
+.btn-option:hover {
+  transform: scale(1.1);
+  cursor: pointer;
 }
