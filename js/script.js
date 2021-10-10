@@ -27,6 +27,8 @@ function fetchBtnSVG() {
   const optionButtons = document.querySelectorAll(".btn-option");
   optionButtons.forEach((button) => {
     button.addEventListener("click", selectPart);
+    const spritBtn = document.createElement("div");
+    spritBtn.classList.add("sprit-btn");
 
     const part = button.dataset.part;
     const option = button.dataset.option;
@@ -36,8 +38,10 @@ function fetchBtnSVG() {
         return res.text();
       })
       .then(function (data) {
-        button.innerHTML = data;
+        spritBtn.innerHTML = data;
       });
+
+    button.appendChild(spritBtn);
   });
 }
 
