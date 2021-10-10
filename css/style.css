@@ -113,8 +113,8 @@ div[id^="option"] + * {
   background-color: rgb(90, 89, 75);
 }
 
-div[class^="sub_option-"] {
+.btn-option {
   width: 6rem;
   height: 6rem;
-  background-color: aqua;
+  cursor: pointer;
 }

@@ -1,24 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 676 716">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 676 716" id="monster-complete">
   <defs>
     <style>
       
-     .cls-1 {
+     #monster-complete .cls-1 {
         fill: none;
       }
 
-      .cls-2 {
+      #monster-complete .cls-2 {
         fill: #fff;
       }
 
-      .cls-3 {
+      #monster-complete .cls-3 {
         fill: #333;
       }
 
-      .cls-4 {
+      #monster-complete .cls-4 {
         fill: #c1272d;
       }
 
-      .cls-5 {
+      #monster-complete .cls-5 {
         fill: #e8e8e8;
       }
     </style>
@@ -919,7 +919,7 @@
         </g>
       </g>
     </g>
-    <g id="eye2" class="monster-part hide">
+    <g id="eyes2" class="monster-part hide">
       <g>
         <g>
           <path class="cls-2" d="M399.1,257.83a62.11,62.11,0,0,1-124.21,0c0-.41,0-.81,0-1.22s0-.56,0-.84a62.1,62.1,0,0,1,124.16,1.58C399.1,257.51,399.1,257.67,399.1,257.83Z"/>

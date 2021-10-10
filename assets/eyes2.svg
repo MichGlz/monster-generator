@@ -1,11 +1,11 @@
-<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 167 161">
+<svg id="part-eyes2" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 167 161">
   <defs>
     <style>
-      .cls-1 {
+      #part-eyes2 .cls-1 {
         fill: #fff;
       }
 
-      .cls-2 {
+      #part-eyes2 .cls-2 {
         fill: #e8e8e8;
       }
     </style>

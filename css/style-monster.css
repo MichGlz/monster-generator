@@ -2,19 +2,19 @@
   fill: grey;
 } */
 
-.monster-part .cls-1 {
+#monster-complete .monster-part .cls-1 {
   fill: white;
 }
 
-.monster-part image {
+#monster-complete .monster-part image {
   pointer-events: none;
 }
-.monster-part path {
+#monster-complete .monster-part path {
   stroke: black;
   stroke-width: 2px;
 }
 
-.monster-part:hover .cls-1 {
+#monster-complete .monster-part:hover .cls-1 {
   fill: hotpink;
 }
 
