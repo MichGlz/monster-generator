@@ -52,7 +52,6 @@ section {
 
 #monster-container {
   width: 60%;
-  height: 70%;
   background-color: aliceblue;
   position: relative;
 }
@@ -116,9 +115,9 @@ div[id^="option"] + * {
 
 .btn-option {
   width: 6rem;
-  height: 6rem;
+
   cursor: pointer;
-  transition: transform 0.5s;
+  background-color: brown;
 }
 
 .btn-option:hover {

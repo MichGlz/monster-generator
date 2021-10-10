@@ -62,17 +62,21 @@ function selectPart(e) {
 }
 
 function animationFLIP(target, featureElement) {
-  const firstFrame = target.querySelector("svg").getBoundingClientRect();
+  const firstFrame = target.getBoundingClientRect();
   const lastFrame = featureElement.getBoundingClientRect();
   const monsterComplete = document.querySelector("#monster-complete").getBoundingClientRect();
-  const scaleFactor = 716 / monsterComplete.height;
+  const scaleFactorY = 716 / monsterComplete.height;
+  const scaleFactorX = 676 / monsterComplete.width;
+  // const Xdiference=monsterComplete.
+  const scaleFactor = 1;
 
-  const deltaX = (firstFrame.left - lastFrame.left) * scaleFactor;
-  const deltaY = (firstFrame.top - lastFrame.top) * scaleFactor;
-  const deltaWidth = (firstFrame.width / lastFrame.width) * scaleFactor;
-  const deltaHeight = (firstFrame.height / lastFrame.height) * scaleFactor;
+  console.log("scaleY:", scaleFactorY, "scaleX", scaleFactorX);
 
-  const root = document.querySelector(":root");
+  const deltaX = (firstFrame.left - lastFrame.left) * scaleFactorX;
+  const deltaY = (firstFrame.top - lastFrame.top) * scaleFactorY;
+  const deltaWidth = (firstFrame.width / lastFrame.width) * scaleFactorX;
+  const deltaHeight = (firstFrame.height / lastFrame.height) * scaleFactorY;
+
   featureElement.style.setProperty("--deltaX", `${deltaX}px`);
   featureElement.style.setProperty("--deltaY", `${deltaY}px`);
   featureElement.style.setProperty("--deltaWidth", deltaWidth);

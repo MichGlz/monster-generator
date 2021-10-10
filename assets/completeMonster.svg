@@ -3,10 +3,7 @@
     <style>
       #monster-complete{
         overflow:visible;
-        position:absolute;
-        top:0;
-        left:0
-        z-index:5
+       
       }
 
      #monster-complete .cls-1 {
