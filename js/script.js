@@ -2,11 +2,19 @@
 
 window.addEventListener("DOMContentLoaded", start);
 
+let currentColor = "white";
+let feet1;
+
 function start() {
   //fetch monster
   fetchMonster();
   //fetch btn SVG
   fetchBtnSVG();
+
+  feet1 = document.querySelector("#feet1");
+
+  // call init function
+  init();
 }
 
 function fetchMonster() {
@@ -53,4 +61,24 @@ function selectPart(e) {
   } else {
     document.querySelector(`#${part + option}`).classList.add("hide");
   }
+}
+
+function init() {
+  feet1.addEventListener("click", setColor);
+  document.querySelectorAll(".color-btn").forEach((element) => {
+    element.addEventListener("click", (event) => {
+      console.log(event.target.style.backgroundColor);
+      currentColor = event.target.style.backgroundColor;
+    });
+  });
+}
+
+function setColor(event) {
+  console.log(event.target.parentElement);
+  event.target.style.fill = currentColor;
+  const parent = event.target.parentElement;
+
+  document.querySelectorAll(`#${parent.id} .cls-1`).forEach((child) => {
+    child.style.fill = currentColor;
+  });
 }
