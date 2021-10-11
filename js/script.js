@@ -61,6 +61,8 @@ function selectPart(e) {
     //hide the other part active
     removeTheActiveParts(part);
 
+    this.classList.add("active");
+
     //create the sprit for animation & append
     const sprit = createSprit(part, option, featureElement);
     document.querySelector("main").appendChild(sprit);
@@ -79,11 +81,18 @@ function selectPart(e) {
   } else {
     //hide the part of the monster
     document.querySelector(`#${part + option}`).classList.add("hide");
+
+    //create the sprit for animation & append
     const sprit = createSprit(part, option, featureElement);
     document.querySelector("main").appendChild(sprit);
+
+    //calculate and set the values for FLIP animation
     animationFLIP(this, featureElement, sprit);
     sprit.classList.add("animate-feature-out");
+
+    //add the event listener to remove the sprit
     sprit.addEventListener("animationend", () => {
+      this.classList.remove("active");
       sprit.remove();
     });
   }
@@ -133,6 +142,9 @@ function removeTheActiveParts(part) {
   for (let i = 1; i <= 3; i++) {
     document.querySelector(`#${part + i}`).classList.add("hide");
   }
+  document.querySelectorAll(`.btn-option[data-part="${part}"]`).forEach((btn) => {
+    btn.classList.remove("active");
+  });
 }
 
 function init() {
