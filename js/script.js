@@ -2,6 +2,8 @@
 
 window.addEventListener("DOMContentLoaded", start);
 
+const activeMonsterpart = {};
+
 function start() {
   //fetch monster
   fetchMonster();
@@ -32,7 +34,8 @@ function fetchBtnSVG() {
 
     const part = button.dataset.part;
     const option = button.dataset.option;
-    console.log(part);
+    activeMonsterpart[`${part + option}`] = false;
+
     fetch(`assets/btn-${part + option}.svg`)
       .then(function (res) {
         return res.text();
@@ -49,22 +52,29 @@ function selectPart(e) {
   const part = this.dataset.part;
   const option = this.dataset.option;
   const featureElement = document.querySelector(`#${part + option}`);
+  const partNo = part + option;
 
   if (featureElement.classList.contains("hide")) {
-    for (let i = 1; i <= 3; i++) {
-      document.querySelector(`#${part + i}`).classList.add("hide");
-    }
+    //hide the other part active
+    hideTheOtherParts(part);
 
+    //create the sprit for animation & append
     const sprit = createSprit(part, option, featureElement);
     document.querySelector("main").appendChild(sprit);
 
+    //calculate and set the values for FLIP animation
     animationFLIP(this, featureElement, sprit);
+
+    //add the class with the animation
     sprit.classList.add("animate-feature-in");
+
+    //add the event listener to show the part in the monster svg
     sprit.addEventListener("animationend", () => {
       featureElement.classList.remove("hide");
-      sprit.classList.remove("animate-feature-in");
+      sprit.remove();
     });
   } else {
+    //hide the part of the monster
     document.querySelector(`#${part + option}`).classList.add("hide");
     const sprit = createSprit(part, option, featureElement);
     document.querySelector("main").appendChild(sprit);
@@ -114,4 +124,10 @@ function createSprit(part, option, featureElement) {
 
   // sprit.style.backgroundImage = `url(assets/${part + option}.svg)`;
   return sprit;
+}
+
+function hideTheOtherParts(part) {
+  for (let i = 1; i <= 3; i++) {
+    document.querySelector(`#${part + i}`).classList.add("hide");
+  }
 }

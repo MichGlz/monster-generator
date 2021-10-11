@@ -158,6 +158,10 @@ div[id^="option"] + * {
   background-color: #ee564b;
 }
 
+.btn-option.active {
+  box-shadow: 0 0 0 4px #ee564b;
+}
+
 .btn {
   font-family: var(--font-primary);
   font-size: 1.2em;
