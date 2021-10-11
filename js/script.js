@@ -3,15 +3,13 @@
 window.addEventListener("DOMContentLoaded", start);
 
 let currentColor = "white";
-let feet1;
+let bodyParts;
 
 function start() {
   //fetch monster
   fetchMonster();
   //fetch btn SVG
   fetchBtnSVG();
-
-  feet1 = document.querySelector("#feet1");
 
   // call init function
   init();
@@ -26,6 +24,7 @@ function fetchMonster() {
     })
     .then(function (data) {
       document.querySelector("#monster-container").innerHTML = data;
+      bodyParts = document.querySelector(".monster-part");
     });
 }
 
@@ -64,7 +63,7 @@ function selectPart(e) {
 }
 
 function init() {
-  feet1.addEventListener("click", setColor);
+  bodyParts.addEventListener("click", setColor);
   document.querySelectorAll(".color-btn").forEach((element) => {
     element.addEventListener("click", (event) => {
       console.log(event.target.style.backgroundColor);
@@ -78,7 +77,7 @@ function setColor(event) {
   event.target.style.fill = currentColor;
   const parent = event.target.parentElement;
 
-  document.querySelectorAll(`#${parent.id} .cls-1`).forEach((child) => {
-    child.style.fill = currentColor;
+  document.querySelectorAll(`#${this.id} .cls-1`).forEach((element) => {
+    element.style.fill = currentColor;
   });
 }
