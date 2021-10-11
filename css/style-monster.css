@@ -24,6 +24,22 @@
   fill: hotpink;
 }
 
+.chest {
+  filter: brightness(90%);
+}
+
+.shadow {
+  filter: brightness(70%);
+}
+
+.skin {
+  filter: brightness(80%);
+}
+
+.nails {
+  filter: brightness(90%);
+}
+
 .hide {
   opacity: 0;
   pointer-events: none;

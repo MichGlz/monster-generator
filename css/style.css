@@ -138,11 +138,12 @@ div[id^="option"] + * {
   width: 6rem;
   height: 6rem;
   cursor: pointer;
-  transition: transform 0.5s;
+  transition: box-shadow 0.2s;
   background-color: #002b5c;
   border-radius: 50%;
   display: flex;
   align-items: center;
+  box-shadow: 0 0 0 0px #ee564b;
 }
 
 .sprit-btn {
@@ -152,6 +153,7 @@ div[id^="option"] + * {
 }
 
 .btn-option:hover {
+  box-shadow: 0 0 0 8px #ee564b;
   cursor: pointer;
   background-color: #ee564b;
 }
