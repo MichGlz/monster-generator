@@ -79,12 +79,12 @@ function selectPart(e) {
 function animationFLIP(target, featureElement, sprit) {
   const firstFrame = target.querySelector("svg").getBoundingClientRect();
   const lastFrame = featureElement.getBoundingClientRect();
-
+  const windowY = window.scrollY;
   const deltaX = firstFrame.left - lastFrame.left;
-  const deltaY = firstFrame.top - lastFrame.top;
+  const deltaY = firstFrame.top - lastFrame.top + windowY;
   const deltaWidth = firstFrame.width / lastFrame.width;
   const deltaHeight = firstFrame.height / lastFrame.height;
-
+  sprit.style.setProperty("--windowScroll", `${windowY}px`);
   sprit.style.setProperty("--deltaX", `${deltaX}px`);
   sprit.style.setProperty("--deltaY", `${deltaY}px`);
   sprit.style.setProperty("--deltaWidth", deltaWidth);

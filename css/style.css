@@ -204,19 +204,19 @@ div[id^="option"] + * {
   0% {
     transform-origin: top left;
     transform: translateX(var(--deltaX)) translateY(var(--deltaY)) scale(var(--deltaWidth), var(--deltaHeight));
-    opacity: 0.5;
+    opacity: 0.8;
   }
 
   40% {
     transform-origin: center;
     transform: translateY(-10vw) scale(calc(var(--deltaWidth) * 2), calc(var(--deltaHeight) * 2));
   }
-  98% {
+  50% {
     opacity: 0.5;
   }
   100% {
     transform-origin: top left;
-    transform: none;
-    opacity: 0;
+    transform: translateX(0) translateY(var(--windowScroll)) scale(1);
+    opacity: 1;
   }
 }
