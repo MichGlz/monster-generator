@@ -2,6 +2,9 @@
 
 window.addEventListener("DOMContentLoaded", start);
 
+let currentColor = "white";
+let bodyParts;
+
 function start() {
   //fetch monster
   fetchMonster();
@@ -18,7 +21,10 @@ function fetchMonster() {
     })
     .then(function (data) {
       document.querySelector("#monster-container").innerHTML = data;
+      bodyParts = document.querySelectorAll(".subpart");
       console.log(document.querySelector("#monster-complete").getBoundingClientRect());
+      // call init function
+      init();
     });
 }
 
@@ -114,4 +120,37 @@ function createSprit(part, option, featureElement) {
 
   // sprit.style.backgroundImage = `url(assets/${part + option}.svg)`;
   return sprit;
+}
+
+function init() {
+  bodyParts.forEach((part) => {
+    part.addEventListener("click", setColor);
+    // part.addEventListener("mouseover", () => {
+    //   part.querySelectorAll(`path`).forEach((element) => {
+    //     element.style.fill = currentColor;
+    //   });
+    // });
+    // part.addEventListener("mouseout", () => {
+    //   part.querySelectorAll(`path`).forEach((element) => {
+    //     element.style.fill = "white";
+    //   });
+    // });
+  });
+  document.querySelectorAll(".color-btn").forEach((element) => {
+    element.addEventListener("click", (event) => {
+      console.log(event.target.style.backgroundColor);
+      currentColor = event.target.style.backgroundColor;
+      document.querySelector(":root").style.setProperty("--currentColor", currentColor);
+    });
+  });
+}
+
+function setColor(event) {
+  console.log(event.target.parentElement);
+  const parent = event.target.parentElement;
+
+  this.style.fill = currentColor;
+  // parent.querySelectorAll(`path`).forEach((element) => {
+  //   element.style.fill = currentColor;
+  // });
 }
