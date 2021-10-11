@@ -38,7 +38,6 @@ function fetchBtnSVG() {
 
     const part = button.dataset.part;
     const option = button.dataset.option;
-    activeMonsterpart[`${part + option}`] = false;
 
     fetch(`assets/btn-${part + option}.svg`)
       .then(function (res) {
@@ -60,7 +59,7 @@ function selectPart(e) {
 
   if (featureElement.classList.contains("hide")) {
     //hide the other part active
-    hideTheOtherParts(part);
+    removeTheActiveParts(part);
 
     //create the sprit for animation & append
     const sprit = createSprit(part, option, featureElement);
