@@ -33,7 +33,7 @@ function fetchBtnSVG() {
     const part = button.dataset.part;
     const option = button.dataset.option;
     console.log(part);
-    fetch(`assets/${part + option}.svg`)
+    fetch(`assets/btn-${part + option}.svg`)
       .then(function (res) {
         return res.text();
       })
@@ -104,7 +104,7 @@ function createSprit(part, option, featureElement) {
   sprit.style.top = `${boxTop}px`;
   sprit.style.left = `${boxLeft}px`;
 
-  fetch(`assets/${part + option}.svg`)
+  fetch(`assets/btn-${part + option}.svg`)
     .then(function (res) {
       return res.text();
     })
