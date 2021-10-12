@@ -161,20 +161,9 @@ function removeTheActiveParts(part) {
 function init() {
   bodyParts.forEach((part) => {
     part.addEventListener("click", setColor);
-    // part.addEventListener("mouseover", () => {
-    //   part.querySelectorAll(`path`).forEach((element) => {
-    //     element.style.fill = currentColor;
-    //   });
-    // });
-    // part.addEventListener("mouseout", () => {
-    //   part.querySelectorAll(`path`).forEach((element) => {
-    //     element.style.fill = "white";
-    //   });
-    // });
   });
   document.querySelectorAll(".color-btn").forEach((element) => {
     element.addEventListener("click", (event) => {
-      console.log(event.target.style.backgroundColor);
       currentColor = event.target.style.backgroundColor;
       document.querySelector(":root").style.setProperty("--currentColor", currentColor);
     });
