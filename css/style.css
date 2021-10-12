@@ -152,14 +152,15 @@ div[id^="option"] + * {
   pointer-events: none;
 }
 
+.btn-option.active {
+  box-shadow: 0 0 0 10px #ee564b;
+  background-color: #ee564b;
+}
+
 .btn-option:hover {
   box-shadow: 0 0 0 8px #ee564b;
   cursor: pointer;
   background-color: #ee564b;
-}
-
-.btn-option.active {
-  box-shadow: 0 0 0 4px #ee564b;
 }
 
 .btn {
