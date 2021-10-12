@@ -31,7 +31,7 @@ function fetchMonster() {
 function fetchBtnSVG() {
   console.log("fetch SVG buttons");
   const optionButtons = document.querySelectorAll(".btn-option");
-  optionButtons.forEach((button) => {
+  optionButtons.forEach((button, i, arr) => {
     button.addEventListener("click", selectPart);
     const spritBtn = document.createElement("div");
     spritBtn.classList.add("sprit-btn");
@@ -48,27 +48,35 @@ function fetchBtnSVG() {
       });
 
     button.appendChild(spritBtn);
+    if (i + 1 === arr.length) {
+      setTimeout(randomMonster, 500);
+    }
   });
 }
 
 function selectPart(e) {
   const part = this.dataset.part;
   const option = this.dataset.option;
+  displayPart(part, option);
+}
+
+function displayPart(part, option) {
   const featureElement = document.querySelector(`#${part + option}`);
+  const btnOption = document.querySelector(`.btn-option[data-part="${part}"][data-option="${option}"]`);
   const partNo = part + option;
 
   if (featureElement.classList.contains("hide")) {
     //hide the other part active
     removeTheActiveParts(part);
 
-    this.classList.add("active");
+    btnOption.classList.add("active");
 
     //create the sprit for animation & append
     const sprit = createSprit(part, option, featureElement);
     document.querySelector("main").appendChild(sprit);
 
     //calculate and set the values for FLIP animation
-    animationFLIP(this, featureElement, sprit);
+    animationFLIP(btnOption, featureElement, sprit);
 
     //add the class with the animation
     sprit.classList.add("animate-feature-in");
@@ -87,12 +95,12 @@ function selectPart(e) {
     document.querySelector("main").appendChild(sprit);
 
     //calculate and set the values for FLIP animation
-    animationFLIP(this, featureElement, sprit);
+    animationFLIP(btnOption, featureElement, sprit);
     sprit.classList.add("animate-feature-out");
 
     //add the event listener to remove the sprit
     sprit.addEventListener("animationend", () => {
-      this.classList.remove("active");
+      btnOption.classList.remove("active");
       sprit.remove();
     });
   }
@@ -141,6 +149,9 @@ function createSprit(part, option, featureElement) {
 function removeTheActiveParts(part) {
   for (let i = 1; i <= 3; i++) {
     document.querySelector(`#${part + i}`).classList.add("hide");
+    document.querySelectorAll(`#${part + i} .subpart`).forEach((subpart) => {
+      subpart.style.fill = "white";
+    });
   }
   document.querySelectorAll(`.btn-option[data-part="${part}"]`).forEach((btn) => {
     btn.classList.remove("active");
@@ -171,11 +182,21 @@ function init() {
 }
 
 function setColor(event) {
-  console.log(event.target.parentElement);
+  console.log(this.parentElement);
   const parent = event.target.parentElement;
 
   this.style.fill = currentColor;
   // parent.querySelectorAll(`path`).forEach((element) => {
   //   element.style.fill = currentColor;
   // });
+}
+
+function randomMonster() {
+  const monsterParts = document.querySelectorAll(".monster-part").forEach((part) => {
+    part.classList.add("hide");
+  });
+  const parts = ["body", "ears", "eyes", "mouth", "arms", "feet"];
+  parts.forEach((part, i) => {
+    displayPart(part, Math.floor(Math.random() * 3 + 1));
+  });
 }
