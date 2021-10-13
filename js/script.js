@@ -238,6 +238,25 @@ function shareMonster() {
   createColorsObject();
   const myLink = `https://michglz.github.io/monster-generator/index.html?mymonster=${JSON.stringify(monster)}&mycolors=${JSON.stringify(monsterColors)}`;
   document.querySelector("#my-link").value = myLink;
+  document.querySelector("#copy-link").addEventListener("click", copyMyLink);
+  document.querySelector("#close-alert").addEventListener("click", () => {
+    document.querySelector("#modal").classList.remove("active");
+  });
+  document.querySelector("#modal").classList.add("active");
+}
+
+function copyMyLink() {
+  /* Get the text field */
+  const copyLink = document.querySelector("#my-link");
+
+  /* Select the text field */
+  copyLink.select();
+
+  /* Copy the text inside the text field */
+  navigator.clipboard.writeText(copyLink.value);
+
+  /* Alert the copied text */
+  alert("Copied the link");
 }
 
 function createPartsObject() {
