@@ -3,6 +3,7 @@
 window.addEventListener("DOMContentLoaded", start);
 
 let currentColor = "white";
+const defaultColor = "white";
 let bodyParts;
 let monster = {};
 let monsterColors = {};
@@ -16,6 +17,7 @@ function start() {
   setFirstHoverColor();
   //event listeners
   document.querySelector(".btn.btn-1").addEventListener("click", randomMonster);
+  document.querySelector(".btn.btn-4").addEventListener("click", saveMonster);
 }
 
 function fetchMonster() {
@@ -54,7 +56,7 @@ function fetchBtnSVG() {
 
     button.appendChild(spritBtn);
     if (i + 1 === arr.length) {
-      setTimeout(randomMonster, 500);
+      setTimeout(randomMonster, 100);
     }
   });
 }
@@ -65,7 +67,7 @@ function selectPart(e) {
   displayPart(part, option);
 }
 
-function displayPart(part, option) {
+function displayPart(part, option, prevActiveID) {
   const featureElement = document.querySelector(`#${part + option}`);
   const btnOption = document.querySelector(`.btn-option[data-part="${part}"][data-option="${option}"]`);
   const partNo = part + option;
@@ -96,6 +98,9 @@ function displayPart(part, option) {
     //hide the part of the monster
     featureElement.classList.add("hide");
     featureElement.classList.remove("active");
+    featureElement.querySelectorAll(".subpart").forEach((part) => {
+      part.style.fill = defaultColor;
+    });
 
     //create the sprit for animation & append
     const sprit = createSprit(part, option, featureElement);
@@ -155,11 +160,14 @@ function createSprit(part, option, featureElement) {
 
 function removeTheActiveParts(part) {
   const activePart = document.querySelector(`g[id^="${part}"].active`);
-  if (activePart) {
-    activePart.classList.add("hide");
-    activePart.classList.remove("active");
 
+  if (activePart) {
     document.querySelector(`#${part}-btns .btn-option.active`).classList.remove("active");
+    activePart.classList.add("hide");
+    activePart.querySelectorAll(".subpart").forEach((part) => {
+      part.style.fill = defaultColor;
+    });
+    activePart.classList.remove("active");
   }
 }
 
@@ -176,11 +184,7 @@ function init() {
 }
 
 function setColor(event) {
-  console.log(this.parentElement);
-  const parent = this.parentElement.id;
   this.style.fill = currentColor;
-  const subPart = this.classList[0];
-  pushColorToObject(parent, subPart);
 }
 
 function randomMonster() {
@@ -199,13 +203,35 @@ function setFirstHoverColor() {
   currentColor = btnColor.dataset.bgcolor;
   document.querySelector(":root").style.setProperty("--currentColor", currentColor);
 }
-
-function pushPartToObject(part, option) {
-  monster[part] = part + option;
-  monsterColors[part] = {};
+////////////save monster & colors////////////////
+function saveMonster() {
+  monster = {};
+  monsterColors = {};
+  pushPartToObject();
+  pushColorToObject();
 }
 
-function pushColorToObject(parent, subPart) {
-  // monsterColors[];
-  console.log(parent, subPart, currentColor);
+function pushPartToObject() {
+  const activeParts = document.querySelectorAll(".monster-part.active");
+  activeParts.forEach((activepart) => {
+    const partID = activepart.id;
+    const x = partID.length - 1;
+    const part = partID.slice(0, x);
+    const option = partID.slice(-1);
+    monster[part] = { id: partID, part: part, option: option };
+    monsterColors[partID] = {};
+  });
+}
+
+function pushColorToObject() {
+  const activeSubParts = document.querySelectorAll(".monster-part.active .subpart");
+  activeSubParts.forEach((element) => {
+    const partID = element.parentElement.id;
+    const subPart = element.classList[0];
+    let color = "white";
+    if (element.style.fill) {
+      color = element.style.fill;
+    }
+    monsterColors[partID][subPart] = color;
+  });
 }
