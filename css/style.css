@@ -170,8 +170,14 @@ div[id^="option"] + * {
   color: #f0eada;
   padding: 0.5em 1em;
   background-color: #ee564b;
-  border: none;
+  border: solid 1px #ee564b;
   border-radius: 6px;
+  cursor: pointer;
+}
+.btn:hover {
+  color: #ee564b;
+  background-color: #f0eada;
+  border: solid 1px #ee564b;
 }
 
 .btn_container {
