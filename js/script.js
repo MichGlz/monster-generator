@@ -236,7 +236,7 @@ function shareMonster() {
   monsterColors = {};
   createPartsObject();
   createColorsObject();
-  const myLink = `http://127.0.0.1:5502/index.html?mymonster=${JSON.stringify(monster)}&mycolors=${JSON.stringify(monsterColors)}`;
+  const myLink = `https://michglz.github.io/monster-generator/index.html?mymonster=${JSON.stringify(monster)}&mycolors=${JSON.stringify(monsterColors)}`;
   document.querySelector("#my-link").value = myLink;
 }
 

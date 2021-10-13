@@ -262,4 +262,9 @@ div[id^="option"] + * {
   background-color: #ee564b;
   padding: 2rem;
   border-radius: 6px;
+  gap: 1rem;
+}
+
+#alert-box .btn {
+  border: solid 1px #f0eada;
 }
