@@ -17,6 +17,7 @@ function start() {
   setFirstHoverColor();
   //event listeners
   document.querySelector(".btn.btn-1").addEventListener("click", randomMonster);
+  document.querySelector(".btn.btn-3").addEventListener("click", shareMonster);
   document.querySelector(".btn.btn-4").addEventListener("click", saveMonster);
 }
 
@@ -187,7 +188,17 @@ function setColor(event) {
   this.style.fill = currentColor;
 }
 function setMonster() {
-  if (localStorage.getItem("myMonsterParts")) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const theShareMonster = JSON.parse(urlParams.get("mymonster"));
+  if (theShareMonster) {
+    monster = theShareMonster;
+    monsterColors = JSON.parse(urlParams.get("mycolors"));
+    getMyMonster();
+  } else if (localStorage.getItem("myMonsterParts")) {
+    const myMonsterParts = JSON.parse(localStorage.getItem("myMonsterParts"));
+    monster = myMonsterParts;
+    const myMonsterColors = JSON.parse(localStorage.getItem("myMonsterColors"));
+    monsterColors = myMonsterColors;
     getMyMonster();
   } else {
     randomMonster();
@@ -213,11 +224,23 @@ function setFirstHoverColor() {
 function saveMonster() {
   monster = {};
   monsterColors = {};
-  pushPartToObject();
-  pushColorToObject();
+  createPartsObject();
+  createColorsObject();
+  localStorage.setItem("myMonsterParts", JSON.stringify(monster));
+  localStorage.setItem("myMonsterColors", JSON.stringify(monsterColors));
+  alert("Your monster is save");
 }
 
-function pushPartToObject() {
+function shareMonster() {
+  monster = {};
+  monsterColors = {};
+  createPartsObject();
+  createColorsObject();
+  const myLink = `http://127.0.0.1:5502/index.html?mymonster=${JSON.stringify(monster)}&mycolors=${JSON.stringify(monsterColors)}`;
+  document.querySelector("#my-link").value = myLink;
+}
+
+function createPartsObject() {
   const activeParts = document.querySelectorAll(".monster-part.active");
   activeParts.forEach((activepart) => {
     const partID = activepart.id;
@@ -227,11 +250,9 @@ function pushPartToObject() {
     monster[part] = { id: partID, part: part, option: option };
     monsterColors[partID] = {};
   });
-
-  localStorage.setItem("myMonsterParts", JSON.stringify(monster));
 }
 
-function pushColorToObject() {
+function createColorsObject() {
   const activeSubParts = document.querySelectorAll(".monster-part.active .subpart");
   activeSubParts.forEach((element) => {
     const partID = element.parentElement.id;
@@ -242,15 +263,9 @@ function pushColorToObject() {
     }
     monsterColors[partID][subPart] = color;
   });
-  localStorage.setItem("myMonsterColors", JSON.stringify(monsterColors));
-  alert("Your monster is save");
 }
 
 function getMyMonster() {
-  const myMonsterParts = JSON.parse(localStorage.getItem("myMonsterParts"));
-  monster = myMonsterParts;
-  const myMonsterColors = JSON.parse(localStorage.getItem("myMonsterColors"));
-  monsterColors = myMonsterColors;
   const monsterParts = Object.keys(monster);
   monsterParts.forEach((key) => {
     displayPart(monster[key].part, monster[key].option);
