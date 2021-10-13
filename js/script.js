@@ -57,7 +57,7 @@ function fetchBtnSVG() {
 
     button.appendChild(spritBtn);
     if (i + 1 === arr.length) {
-      setTimeout(setMonster, 100);
+      setTimeout(setMonster, 200);
     }
   });
 }
@@ -187,6 +187,7 @@ function init() {
 function setColor(event) {
   this.style.fill = currentColor;
 }
+
 function setMonster() {
   const urlParams = new URLSearchParams(window.location.search);
   const theShareMonster = JSON.parse(urlParams.get("mymonster"));
@@ -204,6 +205,7 @@ function setMonster() {
     randomMonster();
   }
 }
+
 function randomMonster() {
   const monsterParts = document.querySelectorAll(".monster-part").forEach((part) => {
     part.classList.add("hide");
