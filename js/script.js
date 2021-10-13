@@ -56,7 +56,7 @@ function fetchBtnSVG() {
 
     button.appendChild(spritBtn);
     if (i + 1 === arr.length) {
-      setTimeout(randomMonster, 100);
+      setTimeout(setMonster, 100);
     }
   });
 }
@@ -67,7 +67,7 @@ function selectPart(e) {
   displayPart(part, option);
 }
 
-function displayPart(part, option, prevActiveID) {
+function displayPart(part, option) {
   const featureElement = document.querySelector(`#${part + option}`);
   const btnOption = document.querySelector(`.btn-option[data-part="${part}"][data-option="${option}"]`);
   const partNo = part + option;
@@ -75,7 +75,7 @@ function displayPart(part, option, prevActiveID) {
   if (featureElement.classList.contains("hide")) {
     //hide the other part active
     removeTheActiveParts(part);
-    pushPartToObject(part, option);
+
     btnOption.classList.add("active");
     //create the sprit for animation & append
     const sprit = createSprit(part, option, featureElement);
@@ -186,7 +186,13 @@ function init() {
 function setColor(event) {
   this.style.fill = currentColor;
 }
-
+function setMonster() {
+  if (localStorage.getItem("myMonsterParts")) {
+    getMyMonster();
+  } else {
+    randomMonster();
+  }
+}
 function randomMonster() {
   const monsterParts = document.querySelectorAll(".monster-part").forEach((part) => {
     part.classList.add("hide");
@@ -221,6 +227,8 @@ function pushPartToObject() {
     monster[part] = { id: partID, part: part, option: option };
     monsterColors[partID] = {};
   });
+
+  localStorage.setItem("myMonsterParts", JSON.stringify(monster));
 }
 
 function pushColorToObject() {
@@ -233,5 +241,26 @@ function pushColorToObject() {
       color = element.style.fill;
     }
     monsterColors[partID][subPart] = color;
+  });
+  localStorage.setItem("myMonsterColors", JSON.stringify(monsterColors));
+  alert("Your monster is save");
+}
+
+function getMyMonster() {
+  const myMonsterParts = JSON.parse(localStorage.getItem("myMonsterParts"));
+  monster = myMonsterParts;
+  const myMonsterColors = JSON.parse(localStorage.getItem("myMonsterColors"));
+  monsterColors = myMonsterColors;
+  const monsterParts = Object.keys(monster);
+  monsterParts.forEach((key) => {
+    displayPart(monster[key].part, monster[key].option);
+    getMyColors(monster[key].id);
+  });
+}
+
+function getMyColors(IDpart) {
+  const subparts = document.querySelectorAll(`#${IDpart} .subpart`);
+  subparts.forEach((subpart) => {
+    subpart.style.fill = monsterColors[IDpart][subpart.classList[0]];
   });
 }
