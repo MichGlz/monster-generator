@@ -275,7 +275,7 @@ div[id$="-btns"] + * {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #ee564b;
-  padding: 2rem;
+  padding: 4rem 2rem;
   border-radius: 6px;
   gap: 1rem;
 }
@@ -307,4 +307,8 @@ div[id$="-btns"] + * {
   background-color: #f0eada;
   border: solid 2px #002b5c;
   color: #002b5c;
+}
+
+#my-link {
+  padding: 0.5rem 1rem;
 }

@@ -259,7 +259,8 @@ function shareMonster() {
   monsterColors = {};
   createPartsObject();
   createColorsObject();
-  const myLink = `https://michglz.github.io/monster-generator/index.html?mymonster=${JSON.stringify(monster)}&mycolors=${JSON.stringify(monsterColors)}`;
+  // const myLink = `https://michglz.github.io/monster-generator/index.html?mymonster=${JSON.stringify(monster)}&mycolors=${JSON.stringify(monsterColors)}`;
+  const myLink = `${window.location.hostname + window.location.pathname}?mymonster=${JSON.stringify(monster)}&mycolors=${JSON.stringify(monsterColors)}`;
   document.querySelector("#my-link").value = myLink;
   document.querySelector("#copy-link").addEventListener("click", copyMyLink);
   document.querySelector("#close-alert").addEventListener("click", () => {
