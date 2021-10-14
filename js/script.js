@@ -57,7 +57,7 @@ function fetchBtnSVG() {
 
     button.appendChild(spritBtn);
     if (i + 1 === arr.length) {
-      setTimeout(setMonster, 200);
+      setTimeout(setMonster, 300);
     }
   });
 }
