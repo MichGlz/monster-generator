@@ -226,6 +226,7 @@ function setFirstHoverColor() {
   const childNo = Math.floor(Math.random() * 8) + 2;
   const btnColor = document.querySelector(`#colors-container .color-${childNo}`);
   currentColor = btnColor.dataset.bgcolor;
+  btnColor.classList.add("color-active");
   document.querySelector(":root").style.setProperty("--currentColor", currentColor);
 }
 
