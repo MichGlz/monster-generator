@@ -131,6 +131,10 @@ function init() {
     element.addEventListener("click", (event) => {
       console.log(event.target.style.backgroundColor);
       currentColor = event.target.style.backgroundColor;
+      if (document.querySelector(".color-btn.color-active")) {
+        document.querySelector(".color-btn.color-active").classList.remove("color-active");
+      }
+
       element.classList.add("color-active");
       document.querySelector(":root").style.setProperty("--currentColor", currentColor);
     });
@@ -141,7 +145,4 @@ function setColor(event) {
   console.log(event.target.parentElement);
   const parent = event.target.parentElement;
   this.style.fill = currentColor;
-  document.querySelectorAll(".color-btn").forEach((button) => {
-    button.classList.remove("color-active");
-  });
 }
