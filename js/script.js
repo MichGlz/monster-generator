@@ -225,8 +225,22 @@ function setFirstHoverColor() {
 }
 
 function resetColors() {
-  document.querySelectorAll(".monster-part.active .subpart").forEach((part) => {
-    part.style.fill = defaultColor;
+  document.querySelectorAll(".monster-part.active .subpart").forEach((part, i) => {
+    setTimeout(() => {
+      part.style.fill = defaultColor;
+    }, i * 100);
+  });
+  document.querySelectorAll(".monster-part.active").forEach((part, i) => {
+    setTimeout(() => {
+      const partXid = part.id;
+      const x = partXid.length - 1;
+      const partX = partXid.slice(0, x);
+      const option = partXid.slice(-1);
+      const btnOption = document.querySelector(`.btn-option[data-part="${partX}"][data-option="${option}"]`);
+      btnOption.classList.remove("active");
+      part.classList.add("hide");
+      part.classList.remove("active");
+    }, i * 200);
   });
 }
 ////////////save monster & colors////////////////
