@@ -4,6 +4,7 @@ window.addEventListener("DOMContentLoaded", start);
 
 let currentColor = "white";
 let bodyParts;
+let element;
 
 function start() {
   //fetch monster
@@ -125,21 +126,12 @@ function createSprit(part, option, featureElement) {
 function init() {
   bodyParts.forEach((part) => {
     part.addEventListener("click", setColor);
-    // part.addEventListener("mouseover", () => {
-    //   part.querySelectorAll(`path`).forEach((element) => {
-    //     element.style.fill = currentColor;
-    //   });
-    // });
-    // part.addEventListener("mouseout", () => {
-    //   part.querySelectorAll(`path`).forEach((element) => {
-    //     element.style.fill = "white";
-    //   });
-    // });
   });
   document.querySelectorAll(".color-btn").forEach((element) => {
     element.addEventListener("click", (event) => {
       console.log(event.target.style.backgroundColor);
       currentColor = event.target.style.backgroundColor;
+      element.classList.add("color-active");
       document.querySelector(":root").style.setProperty("--currentColor", currentColor);
     });
   });
@@ -148,9 +140,8 @@ function init() {
 function setColor(event) {
   console.log(event.target.parentElement);
   const parent = event.target.parentElement;
-
   this.style.fill = currentColor;
-  // parent.querySelectorAll(`path`).forEach((element) => {
-  //   element.style.fill = currentColor;
-  // });
+  document.querySelectorAll(".color-btn").forEach((button) => {
+    button.classList.remove("color-active");
+  });
 }

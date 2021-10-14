@@ -57,7 +57,6 @@ section {
 
 #monster-container {
   width: 60%;
-  /* height: 70%; */
 }
 
 #colors-container {
@@ -80,7 +79,10 @@ section {
 
 .color-btn:hover {
   transform: scale(1.1);
-  border-radius: 50px;
+}
+
+.color-active {
+  border: 5px solid #fcc676;
 }
 
 .options-btn-wrapper {
@@ -186,8 +188,6 @@ div[id^="option"] + * {
 }
 
 .animate-feature-in {
-  /* TODO: Create animation for adding a feature */
-
   animation-name: feature-in;
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
