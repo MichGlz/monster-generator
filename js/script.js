@@ -17,6 +17,7 @@ function start() {
   setFirstHoverColor();
   //event listeners
   document.querySelector(".btn.btn-1").addEventListener("click", randomMonster);
+  document.querySelector(".btn.btn-2").addEventListener("click", resetColors);
   document.querySelector(".btn.btn-3").addEventListener("click", shareMonster);
   document.querySelector(".btn.btn-4").addEventListener("click", saveMonster);
 }
@@ -221,6 +222,12 @@ function setFirstHoverColor() {
   const btnColor = document.querySelector(`#colors-container .color-${childNo}`);
   currentColor = btnColor.dataset.bgcolor;
   document.querySelector(":root").style.setProperty("--currentColor", currentColor);
+}
+
+function resetColors() {
+  document.querySelectorAll(".monster-part.active .subpart").forEach((part) => {
+    part.style.fill = defaultColor;
+  });
 }
 ////////////save monster & colors////////////////
 function saveMonster() {
