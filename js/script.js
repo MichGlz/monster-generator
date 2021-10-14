@@ -180,6 +180,11 @@ function init() {
   document.querySelectorAll(".color-btn").forEach((element) => {
     element.addEventListener("click", (event) => {
       currentColor = event.target.style.backgroundColor;
+      if (document.querySelector(".color-btn.color-active")) {
+        document.querySelector(".color-btn.color-active").classList.remove("color-active");
+      }
+
+      element.classList.add("color-active");
       document.querySelector(":root").style.setProperty("--currentColor", currentColor);
     });
   });
