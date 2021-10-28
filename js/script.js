@@ -7,6 +7,7 @@ const defaultColor = "white";
 let bodyParts;
 let monster = {};
 let monsterColors = {};
+const activeParts = {};
 
 function start() {
   //fetch monster
@@ -47,6 +48,8 @@ function fetchBtnSVG() {
 
     const part = button.dataset.part;
     const option = button.dataset.option;
+    button.dataset.id = part + option;
+    activeParts[part + option] = false;
 
     fetch(`assets/btn-${part + option}.svg`)
       .then(function (res) {
@@ -66,15 +69,17 @@ function fetchBtnSVG() {
 function selectPart(e) {
   const part = this.dataset.part;
   const option = this.dataset.option;
-  displayPart(part, option);
+  const part_id = this.dataset.id;
+  displayPart(part, option, part_id);
 }
 
-function displayPart(part, option) {
-  const featureElement = document.querySelector(`#${part + option}`);
+function displayPart(part, option, ID) {
+  const featureElement = document.querySelector(`#${ID}`);
   const btnOption = document.querySelector(`.btn-option[data-part="${part}"][data-option="${option}"]`);
+  console.log(ID);
   const partNo = part + option;
-
-  if (featureElement.classList.contains("hide")) {
+  activeParts[ID] = !activeParts[ID];
+  if (activeParts[ID]) {
     //hide the other part active
     removeTheActiveParts(part);
 
@@ -101,7 +106,7 @@ function displayPart(part, option) {
     featureElement.classList.add("hide");
     featureElement.classList.remove("active");
     featureElement.querySelectorAll(".subpart").forEach((part) => {
-      part.style.fill = defaultColor;
+      // part.style.fill = defaultColor;
     });
 
     //create the sprit for animation & append
@@ -164,11 +169,13 @@ function removeTheActiveParts(part) {
   const activePart = document.querySelector(`g[id^="${part}"].active`);
 
   if (activePart) {
+    const activeId = activePart.id;
+    activeParts[activeId] = false;
     document.querySelector(`#${part}-btns .btn-option.active`).classList.remove("active");
     activePart.classList.add("hide");
-    activePart.querySelectorAll(".subpart").forEach((part) => {
-      part.style.fill = defaultColor;
-    });
+    // activePart.querySelectorAll(".subpart").forEach((part) => {
+    //   part.style.fill = defaultColor;
+    // });
     activePart.classList.remove("active");
   }
 }
@@ -191,7 +198,18 @@ function init() {
 }
 
 function setColor(event) {
-  this.style.fill = currentColor;
+  const part = this.classList[0];
+  const parts = this.parentElement.id;
+  const x = parts.length - 1;
+  const ID = parts.slice(0, x);
+
+  for (let i = 1; i <= 3; i++) {
+    const toColor = document.querySelector(`#${ID + i} .${part}.subpart`);
+    if (toColor) {
+      toColor.style.fill = currentColor;
+    }
+  }
+  // this.style.fill = currentColor;
 }
 
 function setMonster() {
@@ -215,10 +233,18 @@ function setMonster() {
 function randomMonster() {
   const monsterParts = document.querySelectorAll(".monster-part").forEach((part) => {
     part.classList.add("hide");
+    activeParts[part.id] = false;
+  });
+  document.querySelectorAll(".monster-part .subpart").forEach((e) => {
+    e.style.fill = defaultColor;
   });
   const parts = ["body", "ears", "eyes", "mouth", "arms", "feet"];
   parts.forEach((part, i) => {
-    displayPart(part, Math.floor(Math.random() * 3 + 1));
+    const randomOption = Math.floor(Math.random() * 3 + 1);
+    // activeParts[part + randomOption] = true;
+    setTimeout(() => {
+      displayPart(part, randomOption, part + randomOption);
+    }, i * 200);
   });
 }
 
@@ -231,7 +257,7 @@ function setFirstHoverColor() {
 }
 
 function resetColors() {
-  document.querySelectorAll(".monster-part.active .subpart").forEach((part, i) => {
+  document.querySelectorAll(".monster-part .subpart").forEach((part, i) => {
     setTimeout(() => {
       part.style.fill = defaultColor;
     }, i * 100);
@@ -239,15 +265,18 @@ function resetColors() {
   document.querySelectorAll(".monster-part.active").forEach((part, i) => {
     setTimeout(() => {
       const partXid = part.id;
-      const x = partXid.length - 1;
-      const partX = partXid.slice(0, x);
-      const option = partXid.slice(-1);
-      const btnOption = document.querySelector(`.btn-option[data-part="${partX}"][data-option="${option}"]`);
+      // const x = partXid.length - 1;
+      // const partX = partXid.slice(0, x);
+      // const option = partXid.slice(-1);
+      // const btnOption = document.querySelector(`.btn-option[data-part="${partX}"][data-option="${option}"]`);
+      const btnOption = document.querySelector(`.btn-option[data-id="${partXid}"`);
       btnOption.classList.remove("active");
       part.classList.add("hide");
       part.classList.remove("active");
     }, i * 200);
   });
+  localStorage.removeItem("myMonsterParts");
+  localStorage.removeItem("myMonsterColors");
 }
 ////////////save monster & colors////////////////
 function saveMonster() {
@@ -292,6 +321,9 @@ function copyMyLink() {
 function createPartsObject() {
   const activeParts = document.querySelectorAll(".monster-part.active");
   activeParts.forEach((activepart) => {
+    console.log(activepart);
+
+    // document.querySelector("#new-monster").appendChild(activepart);
     const partID = activepart.id;
     const x = partID.length - 1;
     const part = partID.slice(0, x);
@@ -316,15 +348,21 @@ function createColorsObject() {
 
 function getMyMonster() {
   const monsterParts = Object.keys(monster);
-  monsterParts.forEach((key) => {
-    displayPart(monster[key].part, monster[key].option);
-    getMyColors(monster[key].id);
+  monsterParts.forEach((key, i) => {
+    setTimeout(() => {
+      displayPart(monster[key].part, monster[key].option, monster[key].id);
+      getMyColors(monster[key].id);
+    }, i * 200);
   });
 }
 
 function getMyColors(IDpart) {
   const subparts = document.querySelectorAll(`#${IDpart} .subpart`);
-  subparts.forEach((subpart) => {
-    subpart.style.fill = monsterColors[IDpart][subpart.classList[0]];
+  subparts.forEach((subpart, i) => {
+    setTimeout(() => {
+      subpart.style.fill = monsterColors[IDpart][subpart.classList[0]];
+    }, i * 200);
   });
 }
+
+const svgHead = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 676 716" id="${newMonsterID}"><defs><style>#${newMonsterID}{overflow: visible;}#${newMonsterID} .subpart {fill: white;}#${newMonsterID} .cls-20 {fill: #fff;}#${newMonsterID} .cls-3{fill: #333;}#${newMonsterID} .cls-4 {fill: #c1272d;}#${newMonsterID} .cls-5 {fill: #e8e8e8;}#${newMonsterID} .shadow {filter: brightness(70%);}#${newMonsterID} #body1 .shadow {filter: brightness(60%);}#${newMonsterID} #body1 .chest {filter: brightness(80%);}#${newMonsterID} .monster-part .subpart {stroke: black;stroke-width: 2px;}</style></defs>`;
